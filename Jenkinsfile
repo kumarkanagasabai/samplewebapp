@@ -125,7 +125,7 @@ def postPrComment(String message) {
         return
     }
 
-    withCredentials([string(credentialsId: 'github-token', variable: 'GITHUB_TOKEN')]) {
+    withCredentials([string(credentialsId: 'github-creds', variable: 'GITHUB_TOKEN')]) {
 
         // Extract org/repo from SCM URL
         def repoUrl = scm.userRemoteConfigs[0].url
