@@ -11,8 +11,16 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Build step"
-                dotnet build
+                echo "Build number: ${env.BUILD_NUMBER}"
             }
+        }
+    }
+    post {
+        success {
+            echo "Build succeeded"
+        }
+        failure {
+            echo "Build failed"
         }
     }
 }
