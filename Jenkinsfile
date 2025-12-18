@@ -104,21 +104,25 @@ Failure Reasons: ${reason}
     }
 }
 
+@NonCPS
+def parseGitHubRepo(String repoUrl) {
+    def pattern = 'github\\.com[:/](.+?)/(.+?)(\\.git)?$'
+    def matcher = (repoUrl =~ pattern)
+
+    if (!matcher) {
+        throw new RuntimeException("Cannot parse GitHub repo from URL: ${repoUrl}")
+    }
+
+    return [matcher[0][1], matcher[0][2]]
+}
+
 def postPrComment(String message) {
 
     withCredentials([string(credentialsId: 'github-token', variable: 'GITHUB_TOKEN')]) {
 
         // Extract org/repo from SCM URL
         def repoUrl = scm.userRemoteConfigs[0].url
-        def pattern = 'github\\.com[:/](.+?)/(.+?)(\\.git)?$'
-        def matcher = (repoUrl =~ pattern)
-
-        if (!matcher) {
-            error "Unable to parse GitHub repo from URL: ${repoUrl}"
-        }
-
-        def org  = matcher[0][1]
-        def repo = matcher[0][2]
+        def (org, repo) = parseGitHubRepo(repoUrl)
 
         sh """
         curl -s -X POST \
