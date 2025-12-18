@@ -1,10 +1,7 @@
 pipeline {
-     agent {
-        dockerContainer {
-            image 'mcr.microsoft.com/dotnet/sdk:8.0'
-            args '-v $HOME/.nuget/packages:/root/.nuget/packages'
-        }
-    }
+     agent any
+     tools { dotnetsdk 'dotnet-8' }
+
 
     stages {
         stage('Checkout') {
