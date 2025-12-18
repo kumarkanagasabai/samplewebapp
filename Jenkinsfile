@@ -125,7 +125,7 @@ def postPrComment(String message) {
         return
     }
 
-    withCredentials([string(credentialsId: 'github-creds', variable: 'GITHUB_TOKEN')]) {
+    withCredentials([string(credentialsId: 'github-token', variable: 'GITHUB_TOKEN')]) {
 
         // Extract org/repo from SCM URL
         def repoUrl = scm.userRemoteConfigs[0].url
@@ -139,7 +139,7 @@ def postPrComment(String message) {
         EOF
 
         curl -s -X POST \
-          -H "Authorization: token $GITHUB_TOKEN" \
+          -H "Authorization: Bearer $GITHUB_TOKEN" \
           -H "Accept: application/vnd.github+json" \
           https://api.github.com/repos/${org}/${repo}/issues/${env.CHANGE_ID}/comments \
           -d @pr_comment.json
