@@ -125,11 +125,17 @@ def postPrComment(String message) {
         def (org, repo) = parseGitHubRepo(repoUrl)
 
         sh """
+        cat <<EOF > pr_comment.json
+        {
+          "body": ${groovy.json.JsonOutput.toJson(message)}
+        }
+        EOF
+
         curl -s -X POST \
           -H "Authorization: token $GITHUB_TOKEN" \
           -H "Accept: application/vnd.github+json" \
           https://api.github.com/repos/${org}/${repo}/issues/${env.CHANGE_ID}/comments \
-          -d '{"body": "${message.replace('"', '\\"')}"}'
+          -d @pr_comment.json
         """
     }
 }
