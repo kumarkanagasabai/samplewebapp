@@ -117,6 +117,13 @@ def parseGitHubRepo(String repoUrl) {
 }
 
 def postPrComment(String message) {
+    echo "DEBUG: CHANGE_ID=${env.CHANGE_ID}"
+    echo "DEBUG: BRANCH_NAME=${env.BRANCH_NAME}"
+
+    if (!env.CHANGE_ID) {
+        echo "Not a PR build. Skipping PR comment."
+        return
+    }
 
     withCredentials([string(credentialsId: 'github-token', variable: 'GITHUB_TOKEN')]) {
 
