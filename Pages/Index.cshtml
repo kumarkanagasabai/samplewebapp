@@ -1,0 +1,36 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Sample Web App (.NET)";
+}
+
+<section class="card">
+    <h2>Quick Actions</h2>
+    <div class="row">
+        <input id="nameInput" type="text" placeholder="Enter your name..." />
+        <button id="greetBtn" class="btn">Greet</button>
+    </div>
+    <p id="greetOutput" class="muted"></p>
+</section>
+
+<section class="card">
+    <h2>Counter</h2>
+    <div class="counter">
+        <button id="decBtn" class="btn outline">-</button>
+        <span id="count" class="count">0</span>
+        <button id="incBtn" class="btn">+</button>
+    </div>
+</section>
+
+<section class="card">
+    <h2>Todo List</h2>
+    <div class="row">
+        <input id="todoInput" type="text" placeholder="Add a todo..." />
+        <button id="addTodoBtn" class="btn">Add</button>
+    </div>
+    <ul id="todoList" class="list"></ul>
+</section>
+
+@section Scripts {
+    <!-- If you want page-specific scripts, place here -->
+}
