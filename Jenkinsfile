@@ -88,10 +88,7 @@ pipeline {
 def buildPreMergeMessage(boolean compileSuccess, String reason, String location) {
     if (compileSuccess) {
         return """
-[Pre-Merge Status]
 CI Status: SUCCESS ✅
-Source Compilation: SUCCESS ✅
-Build Location: ${location}
 """.trim()
     } else {
         return """
