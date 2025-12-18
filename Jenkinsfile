@@ -138,6 +138,13 @@ def postPrComment(String message) {
         }
         EOF
 
+        echo "curl -s -X POST \
+          -H "Authorization: Bearer $GITHUB_TOKEN" \
+          -H "Accept: application/vnd.github+json" \
+          https://api.github.com/repos/${org}/${repo}/issues/${env.CHANGE_ID}/comments \
+          -d @pr_comment.json
+          "
+
         curl -s -X POST \
           -H "Authorization: Bearer $GITHUB_TOKEN" \
           -H "Accept: application/vnd.github+json" \
