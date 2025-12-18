@@ -12,6 +12,7 @@ pipeline {
             steps {
                 echo "Build step"
                 echo "Build number: ${env.BUILD_NUMBER}"
+                dotnet build
             }
         }
     }
