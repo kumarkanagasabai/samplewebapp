@@ -1,9 +1,23 @@
 pipeline {
      agent any
-     tools { dotnetsdk 'dotnet-8' }
+     
+
+
 
 
     stages {
+         stage('Bootstrap .NET SDK') {
+  steps {
+    sh '''
+      set -e
+      curl -fsSL https://dot.net/v1/dotnet-install.sh -o dotnet-install.sh
+      chmod +x dotnet-install.sh
+      ./dotnet-install.sh --channel 8.0 --install-dir "$HOME/dotnet"
+      export PATH="$HOME/dotnet:$PATH"
+      dotnet --info
+    '''
+  }
+}
         stage('Checkout') {
             steps {
                 checkout scm
