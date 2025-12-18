@@ -110,8 +110,14 @@ def postPrComment(String message) {
 
         // Extract org/repo from SCM URL
         def repoUrl = scm.userRemoteConfigs[0].url
-        def matcher = repoUrl =~ /github.com[/:](.+?)\/(.+?)(\.git)?$/
-        def org = matcher[0][1]
+        def pattern = 'github\\.com[:/](.+?)/(.+?)(\\.git)?$'
+        def matcher = (repoUrl =~ pattern)
+
+        if (!matcher) {
+            error "Unable to parse GitHub repo from URL: ${repoUrl}"
+        }
+
+        def org  = matcher[0][1]
         def repo = matcher[0][2]
 
         sh """
