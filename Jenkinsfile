@@ -1,8 +1,8 @@
 pipeline {
      agent {
-        docker {
+        dockerContainer {
             image 'mcr.microsoft.com/dotnet/sdk:8.0'
-            args '-u root'
+            args '-v $HOME/.nuget/packages:/root/.nuget/packages'
         }
     }
 
